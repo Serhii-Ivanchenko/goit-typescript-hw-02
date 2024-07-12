@@ -32,7 +32,7 @@ function App() {
   const [showLoadMoreBtn, setShowLoadMoreBtn] = useState<boolean>(false);
   const [modalParams, setModalParams] = useState(modalInitialParams);
 
-  const appRef = useRef<HTMLDivElement>();
+  const appRef = useRef<HTMLDivElement| null>(null);
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -43,10 +43,8 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const { results, total_pages }: SearchResults = await getPhotos(
-          searchQuery,
-          page
-        );
+        const { results, total_pages }: SearchResults =
+          await getPhotos<SearchResults>(searchQuery, page);
         setImages(prevImages => {
           return [...prevImages, ...results];
         });
@@ -82,7 +80,7 @@ function App() {
   useEffect(() => {
     if (page === 1) return;
 
-    appRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    appRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [images, page]);
 
   return (
