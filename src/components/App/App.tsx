@@ -7,23 +7,24 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
+import { Image, Modal } from './App.types';
 
-const modalInitialParams = {
+const modalInitialParams: Modal = {
   isOpen: false,
   url: '',
   description: '',
 };
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [showLoadMoreBtn, setShowLoadMoreBtn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [showLoadMoreBtn, setShowLoadMoreBtn] = useState<boolean>(false);
   const [modalParams, setModalParams] = useState(modalInitialParams);
 
-  const appRef = useRef();
+  const appRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     if (searchQuery === '') {
