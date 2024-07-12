@@ -7,7 +7,7 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
-import { Image, Modal } from './App.types';
+import { Image, Modal, SearchResults } from './App.types';
 
 const modalInitialParams: Modal = {
   isOpen: false,
@@ -35,11 +35,14 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const { results, total_pages } = await getPhotos(searchQuery, page);
+        const { results, total_pages }: SearchResults = await getPhotos(
+          searchQuery,
+          page
+        );
         setImages(prevImages => {
           return [...prevImages, ...results];
         });
-        setShowLoadMoreBtn(total_pages && total_pages !== page);
+        setShowLoadMoreBtn(total_pages > 0 && total_pages !== page);
       } catch (error) {
         setIsError(true);
       } finally {

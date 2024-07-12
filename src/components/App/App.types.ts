@@ -71,3 +71,9 @@ export interface Image {
   user: User;
   width: number;
 }
+
+export interface SearchResults {
+    total: number;
+    total_pages: number;
+    results: Image[];
+}
