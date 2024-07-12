@@ -7,7 +7,15 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
-import { Image, Modal, SearchResults } from './App.types';
+import {
+  Image,
+  Modal,
+  SearchResults,
+  HandleSearch,
+  HandleLoadMoreClick,
+  HandleImageClick,
+  HandleModalClose,
+} from './App.types';
 
 const modalInitialParams: Modal = {
   isOpen: false,
@@ -53,21 +61,21 @@ function App() {
     getData();
   }, [searchQuery, page]);
 
-  const handleSearch = newQuery => {
+  const handleSearch: HandleSearch = newQuery => {
     setSearchQuery(newQuery);
     setPage(1);
     setImages([]);
   };
 
-  const handleLoadMoreClick = () => {
+  const handleLoadMoreClick: HandleLoadMoreClick = () => {
     setPage(page + 1);
   };
 
-  const handleImageClick = (url, description) => {
+  const handleImageClick: HandleImageClick = (url, description) => {
     setModalParams({ isOpen: true, url, description });
   };
 
-  const handleModalClose = () => {
+  const handleModalClose: HandleModalClose = () => {
     setModalParams(modalInitialParams);
   };
 

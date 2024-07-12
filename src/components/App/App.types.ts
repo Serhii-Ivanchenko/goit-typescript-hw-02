@@ -73,7 +73,15 @@ export interface Image {
 }
 
 export interface SearchResults {
-    total: number;
-    total_pages: number;
-    results: Image[];
+  total: number;
+  total_pages: number;
+  results: Image[];
 }
+
+export type HandleSearch = (newQuery: string) => void;
+
+export type HandleLoadMoreClick = () => void;
+
+export type HandleImageClick = (url: string, description: string) => void;
+
+export type HandleModalClose = () => void;
