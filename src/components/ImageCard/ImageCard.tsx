@@ -1,10 +1,16 @@
-import css from './ImageCard.module.css'
+import { Image } from '../App/App.types';
+import css from './ImageCard.module.css';
 
-export default function ImageCard({ item, onImageClick }) {
+interface ImageCardProps {
+  item: Image;
+  onImageClick: () => void;
+}
 
+const ImageCard: React.FC<ImageCardProps> = ({ item, onImageClick }) => {
   return (
     <div className={css.thumb}>
-      <img className={css.image}
+      <img
+        className={css.image}
         src={item.urls.small}
         alt={item.alt_description}
         onClick={onImageClick}
@@ -19,4 +25,5 @@ export default function ImageCard({ item, onImageClick }) {
       </ul>
     </div>
   );
-}
+};
+export default ImageCard;
