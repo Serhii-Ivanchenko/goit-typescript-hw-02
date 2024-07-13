@@ -1,14 +1,25 @@
 // import { Field, Form, Formik } from 'formik';
 import { BsSearch } from 'react-icons/bs';
 import toast, { Toaster } from 'react-hot-toast';
-import css from './SearchBar.module.css'
+import css from './SearchBar.module.css';
+import { HandleSearch } from '../App/App.types';
+import { FC, FormEvent } from 'react';
 
-export default function SearchBar({ onSearch }) {
-  const handleSubmit = event => {
+interface SearchBarProps {
+  onSearch: HandleSearch;
+}
+
+const SearchBar: FC<SearchBarProps> = ({ onSearch }) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const query = event.target.elements.searchQuery.value;
-    query.trim() === '' ? toast.error('Input can not be empty!') : onSearch(query);
-    event.target.reset();
+    const form = event.target as HTMLFormElement;
+    const input = form.elements.namedItem('searchQuery') as HTMLInputElement;
+    const query = input.value;
+
+    query.trim() === ''
+      ? toast.error('Input can not be empty!')
+      : onSearch(query);
+    form.reset();
   };
 
   return (
@@ -30,20 +41,5 @@ export default function SearchBar({ onSearch }) {
     </header>
   );
 
-  //     (
-  //     <Formik
-  //       initialValues={{ searchQuery: '' }}
-  //       onSubmit={(values, actions) => {
-  //         onSearch(values.searchQuery);
-  //         actions.resetForm();
-  //       }}
-  //     >
-  //       <Form>
-  //         <Field name="searchQuery"></Field>
-  //         <button type="submit">
-  //           <BsSearch />
-  //         </button>
-  //       </Form>
-  //     </Formik>
-  //   );
 }
+ export default SearchBar;
