@@ -1,7 +1,16 @@
 import ReactModal from 'react-modal';
 import css from './ImageModal.module.css'
+import { HandleModalClose, Modal } from '../App/App.types';
+import { FC } from 'react';
 
-export default function ImageModal({ isOpen, onClose, url, description }) {
+interface ImageModalProps {
+  isOpen: Modal['isOpen'];
+  url: Modal['url'];
+  description: Modal['description'];
+  onClose: HandleModalClose;
+}
+
+const ImageModal: FC<ImageModalProps> = ({ isOpen, onClose, url, description }) => {
   return (
     <ReactModal
       className={css.modal}
@@ -15,3 +24,5 @@ export default function ImageModal({ isOpen, onClose, url, description }) {
     </ReactModal>
   );
 }
+
+export default ImageModal;
